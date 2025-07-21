@@ -51,6 +51,27 @@ const removeFromCart =(itemId)=>{
  setCartItems(cartData)
 }
 
+// get cart item count
+
+const getCartCount = ()=>{
+    let totalCount = 0;
+    for(const item in cartItems){
+        totalCount += cartItems[item]
+    }
+    return totalCount
+}
+//get cart total amount
+const getCartAmount = ()=>{
+    let totAmount = 0;
+    for (const items in cartItems){
+        let itemInfo = products.find((product)=>product._id ===  items)
+        if(cartItems[items] > 0){
+            totAmount += itemInfo.offerPrice * cartItems[items]
+        }
+    }
+    return Math.floor(totAmount * 100) / 100;
+}
+
 
 
     useEffect(()=>{
@@ -59,7 +80,8 @@ const removeFromCart =(itemId)=>{
 
     const value ={navigate, user, setUser,isSeller,setIsSeller
         ,showUserLogin,setShowUserLogin, products,currency,addTocart 
-    ,updateCartItems, removeFromCart,cartItems,searchQuery,setSearchQuery}
+    ,updateCartItems, removeFromCart,cartItems,searchQuery,setSearchQuery
+     ,getCartCount ,getCartAmount }
 
      return <AppContext.Provider value={value}>
         {children}
